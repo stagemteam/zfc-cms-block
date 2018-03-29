@@ -1,5 +1,5 @@
 {
-  "name": "stagem/zfc-content",
+  "name": "stagem/zfc-cms-block",
   "description": "Content Module",
   "type": "zf-module",
   "license": "MIT",
@@ -21,12 +21,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Stagem\\ZfcContent\\": "src/"
+      "Stagem\\ZfcCmsBlock\\": "src/"
     }
   },
   "extra": {
     "zf": {
-      "config-provider": "Stagem\\ZfcContent\\ConfigProvider"
+      "config-provider": "Stagem\\ZfcCmsBlock\\ConfigProvider"
     }
   }
 }
