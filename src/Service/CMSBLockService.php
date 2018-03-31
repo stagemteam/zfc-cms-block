@@ -32,11 +32,63 @@ class CmsBlockService extends DomainServiceAbstract
         $om->flush();
     }
 
+    public function Key($key1, $key2)
+    {
+        if ($key1 == $key2)
+            return 0;
+        else if ($key1 > $key2)
+            return 1;
+        else
+            return -1;
+    }
+
+    public function saveAllCmsBlocks($cmsBlocksData, $postData) {
+
+        $array1 = array("a" => "green", "red", "blue", "red");
+        $array2 = array("b" => "green", "yellow", "red");
+
+        for ($i=0; $i <= count($postData); $i ++) {
+            $result[$i] = array_diff($cmsBlocksData['cms-blocks'][$i], $postData['cms-blocks'][$i]);
+        }
+
+        \Zend\Debug\Debug::dump($result);
+
+        /*$result = array_intersect($array1, $array2);
+        print_r($result);
+        var_dump(array_diff_ukey($cmsBlocksData, $postData, 'Key'));*/
+
+       die(__METHOD__);
+    }
+
+
+    public function getCmsBlocksByMnemo($mnemo) {
+        $cmsBlocks = ($cmsBlocks = $this->getRepository()->findBy(['mnemo' => $mnemo]))
+            ? $cmsBlocks
+            : $this->getObjectModel();
+
+        return $cmsBlocks;
+
+    }
+
+    public function prepareData($mnemo) {
+        $cmsBlocks = $this->getCmsBlocksByMnemo($mnemo);
+        $i = 0;
+        foreach ($cmsBlocks as $cmsBlock) {
+            $data['cms-blocks'][$i]['id'] = $cmsBlock->getId();
+            $data['cms-blocks'][$i]['title'] = $cmsBlock->getTitle();
+            $data['cms-blocks'][$i]['mnemo'] = $cmsBlock->getMnemo();
+            $data['cms-blocks'][$i]['content'] = $cmsBlock->getContent();
+            $i++;
+        }
+
+        return $data;
+    }
+
     /**
      * @param $mnemo
      * @return bool
      */
-    public function getContentByMnemo($mnemo) {
+    public function getContentsByMnemo($mnemo) {
         $content = $this->getRepository()->getCmsBlockByMnemo($mnemo)->getQuery()->getResult();
 
         if ($content) {

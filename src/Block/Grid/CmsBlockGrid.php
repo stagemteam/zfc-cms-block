@@ -63,7 +63,7 @@ class CmsBlockGrid extends AbstractGrid
             'formatters' => [[
                 'name' => 'Link',
                 'attributes' => ['class' => 'pencil-edit-icon', 'target' => '_blank'],
-                'link' => ['href' => '/admin/zfcContent/edit', 'placeholder_column' => $colId]
+                'link' => ['href' => '/admin/cms-block/edit', 'placeholder_column' => $colId]
             ]],
         ]);
 

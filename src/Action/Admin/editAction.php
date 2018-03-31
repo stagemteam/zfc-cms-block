@@ -5,40 +5,44 @@ namespace Stagem\ZfcCmsBlock\Action\Admin;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Stagem\ZfcCmsBlock\Form\Admin\ContentForm;
+use Stagem\ZfcCmsBlock\Form\Admin\CmsBlockForm;
 use Stagem\ZfcCmsBlock\Service\CmsBlockService;
 use Zend\View\Model\ViewModel;
 use Popov\ZfcForm\FormElementManager;
 
-class EditAction
+class editAction
 {
     /* @var CmsBlockService */
-    protected $contentService;
+    protected $cmsBlockService;
 
     /** @var FormElementManager */
     protected $fm;
 
-    public function __construct(CmsBlockService $contentService, FormElementManager $fm)
+    public function __construct(CmsBlockService $cmsBlockService, FormElementManager $fm)
     {
-        $this->contentService = $contentService;
+        $this->cmsBlockService = $cmsBlockService;
         $this->fm = $fm;
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
 
-        $contentBlock = ($contentBlock = $this->contentService->find($id = (int) $request->getAttribute('id')))
+        $contentBlock = ($contentBlock = $this->cmsBlockService->find($id = (int) $request->getAttribute('id')))
             ? $contentBlock
-            : $this->contentService->getObjectModel();
+            : $this->cmsBlockService->getObjectModel();
 
-        /** @var ContentForm $form */
-        $form = $this->fm->get(ContentForm::class);
+        /*$om->getRepository(Visitor::class)->findOneBy([
+            'user' => $user,
+        ]*/
+
+        /** @var CmsBlockForm $form */
+        $form = $this->fm->get(CmsBlockForm::class);
         $form->bind($contentBlock);
 
         if ($request->getMethod() == 'POST') {
             $form->setData($request->getParsedBody());
             if ($form->isValid()) {
-                $this->contentService->save($contentBlock);
+                $this->cmsBlockService->save($contentBlock);
             }
         }
 

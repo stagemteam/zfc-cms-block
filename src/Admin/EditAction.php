@@ -5,7 +5,7 @@ namespace Stagem\ZfcCmsBlock\Action\Admin;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Stagem\ZfcCmsBlock\Form\Admin\ContentForm;
+use Stagem\ZfcCmsBlock\Form\Admin\CmsBlockForm;
 use Stagem\ZfcCmsBlock\Service\CmsBlockService;
 use Zend\View\Model\ViewModel;
 use Popov\ZfcForm\FormElementManager;
@@ -31,8 +31,8 @@ class EditAction
             ? $contentBlock
             : $this->contentService->getObjectModel();
 
-        /** @var ContentForm $form */
-        $form = $this->fm->get(ContentForm::class);
+        /** @var CmsBlockForm $form */
+        $form = $this->fm->get(CmsBlockForm::class);
         $form->bind($contentBlock);
 
         if ($request->getMethod() == 'POST') {

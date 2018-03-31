@@ -7,7 +7,7 @@ return [
     'templates' =>  [
         'paths' => [
             'content'    => [__DIR__ . '/../view/question'],
-            'admin-content'  => [__DIR__ . '/../view/admin/content'],
+            'admin-cms-block'  => [__DIR__ . '/../view/admin/content'],
         ],
     ],
 

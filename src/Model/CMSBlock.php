@@ -184,7 +184,7 @@ class CmsBlock {
     /**
      * @return mixed
      */
-    public function getisActive()
+    public function getIsActive()
     {
         return $this->isActive;
     }
@@ -195,6 +195,18 @@ class CmsBlock {
     public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
+    }
+
+    public function getArrayCopy()
+    {
+        return get_object_vars($this);
+    }
+
+    public function exchangeArray($data)
+    {
+        $this->title = $data['title'];
+        $this->mnemo = $data['mnemo'];
+        $this->content = $data['content'];
     }
 
 }
