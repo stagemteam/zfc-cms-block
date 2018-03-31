@@ -33,34 +33,24 @@ class testAction
             ? $cmsBlocksData
             : $this->getObjectModel();
 
-        $test['cms-blocks'] = $cmsBlocksData;
-
-        $std = new \stdClass();
-        $std->cmsBlocks = $cmsBlocksData;
-        $std->getArrayCopy = function() {
-            return [];
-        };
-
-
+         /** @var \Zend\Form\Form $form */
         $form = $this->fm->get(CmsBlockForm::class);
         /** @var \Zend\Form\Element\Collection $base */
         $base = $form->getBaseFieldset();
-        //foreach ($cmsBlocksData as $cms) {
-        //    $form
-        //    $data = $form->getHydrator()->extract($cmsBlocksData);
-        //}
-
-        //$base->setData($cmsBlocksData);
         $base->setObject($cmsBlocksData);
-        //$form->bind($cmsBlocksData);
-        //$form->setData($data);
 
-        //$form->setData($cmsBlock);
+        $method = new \ReflectionMethod(get_class($form), 'extract');
+        $method->setAccessible(true);
+        $data = $method->invoke($form);
+
+        $form->populateValues($data, true);
+
         if ($request->getMethod() == 'POST') {
             $postData = $request->getParsedBody();
-            $form->setData($request->getParsedBody());
+            $form->setData($postData);
             if ($form->isValid()) {
-                $this->cmsBlockService->saveAllCmsBlocks($cmsBlocksData, $postData);
+                //$this->cmsBlockService->saveAllCmsBlocks($cmsBlocksData, $postData);
+                $this->cmsBlockService->getObjectManager()->flush();
             }
         }
 

@@ -28,7 +28,7 @@ class CmsBlockFieldset extends Fieldset implements InputFilterProviderInterface,
 
     public function init()
     {
-        $this->setName('cms-block');
+        $this->setName('cmsBlock');
 
         //$this->setHydrator(new ArraySerializable())
         //                ->setObject(new CmsBlock());

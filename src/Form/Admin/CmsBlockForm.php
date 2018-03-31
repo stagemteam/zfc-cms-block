@@ -10,7 +10,7 @@ class CmsBlockForm extends Form implements TranslatorAwareInterface
     use TranslatorAwareTrait;
 
     public function init() {
-        $this->setName('cms-block-form');
+        $this->setName('cmsBlock');
 
             /*$this->setAttribute('method', 'post')
                         ->setBindOnValidate(self::BIND_ON_VALIDATE)
