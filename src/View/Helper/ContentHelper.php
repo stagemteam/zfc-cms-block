@@ -21,15 +21,14 @@ class ContentHelper extends AbstractHelper
     }
 
     /**
-     * @param $name
-     * @return mixed
+     * @param $mnemo
+     * @return bool
      */
-    public function get($name) {
-        $lang = $this->currentHelper->currentRequest()->getAttribute('lang');
-        $contentBlock = $this->contentService->getContentByMnemo($name, $lang);
-        $method = 'getContent' . ucfirst($lang);
-        if (method_exists($contentBlock, $method)) {
-            return $contentBlock->{$method}();
+    public function get($mnemo) {
+        $lang = $this->currentHelper->currentRequest()->getAttribute('langObject');
+        $contentBlock = $this->contentService->getCmsBlocksByLangAndMnemo($mnemo, $lang);
+        if ($contentBlock) {
+            return $contentBlock[0]->getContent();
         }
         return false;
     }

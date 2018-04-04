@@ -10,12 +10,13 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Fig\Http\Message\RequestMethodInterface;
+use Stagem\ZfcCmsPage\Service\CmsPageService;
 use Zend\View\Model\ViewModel;
 
 class IndexAction implements MiddlewareInterface, RequestMethodInterface
 {
     /**
-     * @var CmsBlockService
+     * @var CmsPageService
      */
     protected $cmsBlockService;
 
@@ -37,7 +38,8 @@ class IndexAction implements MiddlewareInterface, RequestMethodInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $contentBlocks = $this->cmsBlockService->getAllContents();
+        $lang = $request->getAttribute('langObject');
+        $contentBlocks = $this->cmsBlockService->getCmsBlocksByLang($lang);
 
         $this->contentGrid->init();
         $productDataGrid = $this->contentGrid->getDataGrid();

@@ -33,12 +33,6 @@ class CmsBlockGrid extends AbstractGrid
 
         $grid->setToolbarTemplateVariables($rendererOptions);
 
-        $colId = $this->add([
-            'name' => 'Select',
-            'construct' => ['mnemo', 'cms_block'],
-            'identity' => true,
-        ])->getDataGrid()->getColumnByUniqueId('cms_block_mnemo');
-
         $this->add([
             'name' => 'Select',
             'construct' => ['title', 'cms_block'],
@@ -46,6 +40,14 @@ class CmsBlockGrid extends AbstractGrid
             'identity' => false,
             'width' => 3,
         ]);
+
+        $colId = $this->add([
+            'name' => 'Select',
+            'construct' => ['mnemo', 'cms_block'],
+            'identity' => true,
+        ])->getDataGrid()->getColumnByUniqueId('cms_block_mnemo');
+
+
 
         $this->add([
             'name' => 'Select',

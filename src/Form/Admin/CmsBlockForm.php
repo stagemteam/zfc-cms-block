@@ -10,7 +10,7 @@ class CmsBlockForm extends Form implements TranslatorAwareInterface
     use TranslatorAwareTrait;
 
     public function init() {
-        $this->setName('cmsBlock');
+        $this->setName('cmsBlocks');
 
             /*$this->setAttribute('method', 'post')
                         ->setBindOnValidate(self::BIND_ON_VALIDATE)
@@ -34,6 +34,16 @@ class CmsBlockForm extends Form implements TranslatorAwareInterface
                 'target_element' => ['type' => \Stagem\ZfcCmsBlock\Form\Admin\CmsBlockFieldset::class],
             ],
         ]);
+
+        /*$this->add([
+            'name' => 'add-cmsBlock',
+            'attributes' => [
+                'type' => 'submit',
+                'value' => '+',
+                'class' => 'add-cmsBlock add-field-group btn small-btn',
+                'data-group-id' => 'keys',
+            ]
+        ]);*/
 
         $this->add([
             'name' => 'submit',

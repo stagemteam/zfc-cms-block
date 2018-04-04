@@ -11,13 +11,17 @@ namespace Stagem\ZfcCmsBlock\Form\Admin;
 use DoctrineModule\Persistence\ObjectManagerAwareInterface;
 use DoctrineModule\Persistence\ProvidesObjectManager;
 use Stagem\ZfcCmsBlock\Model\CmsBlock;
+use Stagem\ZfcLang\Model\Lang;
+use Zend\I18n\Translator\TranslatorAwareInterface;
+use Stagem\ZfcTranslator\TranslatorAwareTrait;
 use Zend\InputFilter\InputFilterProviderInterface;
 use Zend\Form\Fieldset;
 use Zend\Hydrator\ArraySerializable;
 
-class CmsBlockFieldset extends Fieldset implements InputFilterProviderInterface, ObjectManagerAwareInterface
+class CmsBlockFieldset extends Fieldset implements InputFilterProviderInterface, ObjectManagerAwareInterface, TranslatorAwareInterface
 {
     use ProvidesObjectManager;
+    use TranslatorAwareTrait;
 
     protected $entity = CmsBlock::class;
 
@@ -55,21 +59,30 @@ class CmsBlockFieldset extends Fieldset implements InputFilterProviderInterface,
             'name' => 'content',
             'type' => 'textarea',
             'attributes' => [
-                'placeholder' => 'Content En'
+                'placeholder' => $this->translate('Content')
             ],
             'options' => [
-                'label' => 'Content En'
+                'label' => $this->translate('Content')
             ]
         ]);
-        /*$this->add([
-            'name' => 'add-answers',
-            'attributes' => [
-                'type' => 'submit',
-                'value' => '+',
-                'class' => 'add-answer add-field-group btn btn-success small-btn',
-                'data-group-id' => 'answers',
-            ]
-        ]);*/
+
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'lang',
+            'options' => [
+                'object_manager' => $this->getObjectManager(),
+                'target_class' => Lang::class,
+                'property' => 'name',
+                'label'    => $this->translate('Choose language'),
+                //'is_method' => true,
+                /*'find_method' => [
+                    'name' => 'findServiceByServiceCategoryMnemo',
+                    'params' => [
+                        'criteria' => ['orthopedic'],
+                    ],
+                ],*/
+            ],
+        ]);
     }
 
     /**

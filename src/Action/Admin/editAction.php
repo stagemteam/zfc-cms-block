@@ -6,11 +6,12 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Stagem\ZfcCmsBlock\Form\Admin\CmsBlockForm;
+use Stagem\ZfcCmsBlock\Form\Admin\CmsPageForm;
 use Stagem\ZfcCmsBlock\Service\CmsBlockService;
 use Zend\View\Model\ViewModel;
 use Popov\ZfcForm\FormElementManager;
 
-class editAction
+class EditAction
 {
     /* @var CmsBlockService */
     protected $cmsBlockService;
@@ -27,22 +28,26 @@ class editAction
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
 
-        $contentBlock = ($contentBlock = $this->cmsBlockService->find($id = (int) $request->getAttribute('id')))
-            ? $contentBlock
-            : $this->cmsBlockService->getObjectModel();
+        $cmsBlocksData = $this->cmsBlockService->getCmsBlocksByMnemo($request->getAttribute('id'));
 
-        /*$om->getRepository(Visitor::class)->findOneBy([
-            'user' => $user,
-        ]*/
-
-        /** @var CmsBlockForm $form */
+         /** @var \Zend\Form\Form $form */
         $form = $this->fm->get(CmsBlockForm::class);
-        $form->bind($contentBlock);
+        /** @var \Zend\Form\Element\Collection $base */
+        $base = $form->getBaseFieldset();
+        $base->setObject($cmsBlocksData);
+
+        $method = new \ReflectionMethod(get_class($form), 'extract');
+        $method->setAccessible(true);
+        $data = $method->invoke($form);
+
+        $form->populateValues($data, true);
 
         if ($request->getMethod() == 'POST') {
-            $form->setData($request->getParsedBody());
+            $postData = $request->getParsedBody();
+            $form->setData($postData);
             if ($form->isValid()) {
-                $this->cmsBlockService->save($contentBlock);
+                //$this->cmsBlockService->saveAllCmsBlocks($cmsBlocksData, $postData);
+                $this->cmsBlockService->getObjectManager()->flush();
             }
         }
 
