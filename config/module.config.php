@@ -13,7 +13,7 @@ return [
 
     'view_helpers' => [
         'aliases' => [
-            'content' => View\Helper\LangHelper::class,
+            'cmsBlock' => View\Helper\CmsBlockHelper::class,
         ],
     ],
 

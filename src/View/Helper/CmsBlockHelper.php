@@ -6,7 +6,7 @@ use Popov\ZfcCurrent\CurrentHelper;
 use Stagem\ZfcCmsBlock\Service\CmsBlockService;
 use Zend\View\Helper\AbstractHelper;
 
-class ContentHelper extends AbstractHelper
+class CmsBlockHelper extends AbstractHelper
 {
     /** @var CmsBlockService */
     protected $contentService;
