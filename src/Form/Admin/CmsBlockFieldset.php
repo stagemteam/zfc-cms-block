@@ -47,12 +47,18 @@ class CmsBlockFieldset extends Fieldset implements InputFilterProviderInterface,
             'attributes' => [
                 'required' => 'required',
             ],
+			'options' => [
+                'label' => $this->translate('Title')
+            ]
         ]);
         $this->add([
             'name' => 'mnemo',
             'attributes' => [
                 'required' => 'required',
             ],
+			'options' => [
+                'label' => $this->translate('Mnemo')
+            ]
         ]);
 
         $this->add([
