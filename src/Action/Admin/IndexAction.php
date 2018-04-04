@@ -16,7 +16,7 @@ use Zend\View\Model\ViewModel;
 class IndexAction implements MiddlewareInterface, RequestMethodInterface
 {
     /**
-     * @var CmsPageService
+     * @var CmsBlockService
      */
     protected $cmsBlockService;
 

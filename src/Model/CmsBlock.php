@@ -7,7 +7,7 @@ use Popov\ZfcCore\Model\DomainAwareTrait;
 use Stagem\ZfcLang\Model\Lang;
 
 /**
- * @ORM\Entity(repositoryClass="Stagem\ZfcCmsBlock\Model\Repository\CMSBlockRepository")
+ * @ORM\Entity(repositoryClass="Stagem\ZfcCmsBlock\Model\Repository\CmsBlockRepository")
  * @ORM\Table(name="cms_block")
  */
 class CmsBlock {
