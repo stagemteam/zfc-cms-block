@@ -20,8 +20,12 @@ $form->setAttribute('action', $this->url('admin/default', [
     //'id' => $form->getObject()->getId(),
     'lang' => $this->current('request')->getAttribute('lang'),
 ]));
-$form->prepare();
 $cmsBlockFieldset = $form->get('cmsBlocks');
+
+$cmsBlockFieldset->setOptions([
+    'count' => count($this->lang()->getAllLangs()),
+]);
+$form->prepare();
 
 ?>
 <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=5n8uhc6lpsuu8q2ewotgza7nzx5j0osku90zlnwojxmg9296"></script>
