@@ -23,7 +23,7 @@ $form->setAttribute('action', $this->url('admin/default', [
 $cmsBlockFieldset = $form->get('cmsBlocks');
 
 $cmsBlockFieldset->setOptions([
-    'count' => count($this->lang()->getAllLangs()),
+    'count' => count($this->lang()->getLangs()),
 ]);
 $form->prepare();
 
@@ -40,7 +40,7 @@ $form->prepare();
 <div class="col-xs-12"> <!-- required for floating -->
     <!-- Nav tabs -->
     <ul class="nav nav-tabs tabs-left">
-        <?php $langs = $this->lang()->getAllLangs(); ?>
+        <?php $langs = $this->lang()->getLangs(); ?>
         <?php $i = 0; ?>
         <?php foreach ($langs as $lang): ?>
             <li class="<?php  echo $i == 0 ? 'active' : '' ?>"><a href="#lang-<?=$i;?>" data-toggle="tab"><?= $lang->getName();?></a></li>
